@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
     showLinks: true,
     links: [
       { text: "トップページ", href: "index.html" },
-      { text: "プライバシーポリシー", href: "#" },
-      { text: "利用規約", href: "#" },
+      { text: "プライバシーポリシー", href: "privacy-policy.html" },
+      { text: "利用規約", href: "terms-of-service.html" },
     ],
     showDescription: true,
     description: "新規事業アイデア検証プラットフォーム",
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // フッターHTMLを生成
   const footerHTML = `
-    <footer class="${finalConfig.backgroundColor} ${finalConfig.textColor} py-8 mt-12">
+    <footer class="${finalConfig.backgroundColor} ${finalConfig.textColor} py-8">
       <div class="max-w-6xl mx-auto px-4">
         <div class="text-center">
           <div class="flex items-center justify-center space-x-2 mb-4">
