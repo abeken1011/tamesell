@@ -26,11 +26,6 @@ function createHeader(options = {}) {
             ${
               showNavigation
                 ? `
-              <nav class="hidden md:flex space-x-6">
-                <a href="index.html#features" class="text-gray-600 hover:text-primary-600 text-sm">特徴</a>
-                <a href="index.html#how-it-works" class="text-gray-600 hover:text-primary-600 text-sm">使い方</a>
-                <a href="index.html#pricing" class="text-gray-600 hover:text-primary-600 text-sm">料金</a>
-              </nav>
             `
                 : ""
             }
