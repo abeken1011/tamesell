@@ -42,7 +42,7 @@
 
         <!-- Contact Form -->
         <div class="bg-white rounded-2xl shadow-lg p-8">
-          <form class="space-y-6" action="#" method="POST">
+          <form class="space-y-6" name="pre-registration" method="POST" data-netlify="true" data-netlify-recaptcha="true" action="/success.html">
             <!-- 会社名 (オプション) -->
             <div>
               <label for="company" class="block text-sm font-medium text-gray-700 mb-2">
@@ -129,6 +129,9 @@
               </label>
             </div>
 
+            <!-- reCAPTCHA -->
+            <div data-netlify-recaptcha="true"></div>
+
             <!-- 送信ボタン -->
             <div class="pt-4">
               <button
@@ -164,7 +167,7 @@
     <!-- JavaScript for form validation -->
     <script>
       document.querySelector("form").addEventListener("submit", function (e) {
-        e.preventDefault();
+        // Netlify Formsが自動的に処理するため、preventDefault()は削除
 
         // 簡単なバリデーション
         const name = document.getElementById("name").value.trim();
@@ -173,15 +176,12 @@
         const privacy = document.getElementById("privacy").checked;
 
         if (!name || !email || !idea || !privacy) {
+          e.preventDefault();
           alert("必須項目をすべて入力してください。");
           return;
         }
 
-        // 成功メッセージ（実際の実装では、サーバーに送信）
-        alert("事前登録ありがとうございます。\nサービス開始時に優先的にご案内いたします。");
-
-        // フォームをリセット
-        this.reset();
+        // フォーム送信後は、Netlifyが自動的に確認ページにリダイレクトします
       });
     </script>
   </body>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事前登録完了 - タメセル | 新規事業アイデア検証プラットフォーム</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                500: "#2563eb",
+                600: "#1d4ed8",
+                700: "#1e40af",
+              },
+              accent: {
+                500: "#f59e0b",
+                600: "#d97706",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <!-- ヘッダーコンポーネントの設定 -->
+    <div data-header='{"showBackButton": true, "backButtonText": "トップページに戻る", "backButtonUrl": "index.html"}'></div>
+
+    <!-- Main Content -->
+    <main class="py-12">
+      <div class="max-w-2xl mx-auto px-4">
+        <!-- Success Message -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
+          <div class="mb-6">
+            <div class="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-4">
+              <i class="fas fa-check-circle text-green-600 text-3xl"></i>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">事前登録完了！</h1>
+            <p class="text-lg text-gray-600">ご登録いただき、ありがとうございます。</p>
+          </div>
+
+          <div class="bg-blue-50 rounded-lg p-6 mb-6">
+            <h3 class="text-lg font-semibold text-blue-900 mb-3">今後の流れ</h3>
+            <div class="space-y-3 text-left">
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                <div>
+                  <p class="font-medium text-blue-900">確認メールの送信</p>
+                  <p class="text-sm text-blue-700">ご登録いただいたメールアドレスに確認メールをお送りします。</p>
+                </div>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                <div>
+                  <p class="font-medium text-blue-900">サービス開発の進捗報告</p>
+                  <p class="text-sm text-blue-700">開発の進捗や新機能について定期的にお知らせします。</p>
+                </div>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                <div>
+                  <p class="font-medium text-blue-900">サービス開始のご案内</p>
+                  <p class="text-sm text-blue-700">サービス開始時に優先的にご案内し、特別価格でご提供いたします。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-yellow-50 rounded-lg p-4 mb-6">
+            <h4 class="font-medium text-yellow-900 mb-2">
+              <i class="fas fa-star mr-1"></i>
+              事前登録者限定特典
+            </h4>
+            <ul class="text-sm text-yellow-800 space-y-1">
+              <li>• サービス開始時の優先案内</li>
+              <li>• 初回利用料金の特別割引</li>
+              <li>• ベータ版の先行利用権</li>
+              <li>• 個別サポートの優先対応</li>
+            </ul>
+          </div>
+
+          <div class="space-x-4">
+            <a
+              href="index.html"
+              class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors"
+            >
+              <i class="fas fa-home mr-2"></i>
+              トップページに戻る
+            </a>
+            <a
+              href="mailto:info@tamesell.com"
+              class="inline-flex items-center px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg font-medium transition-colors"
+            >
+              <i class="fas fa-envelope mr-2"></i>
+              お問い合わせ
+            </a>
+          </div>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="mt-8 text-center">
+          <p class="text-sm text-gray-500">
+            メールが届かない場合は、迷惑メールフォルダもご確認ください。<br />
+            ご不明な点がございましたら、お気軽にお問い合わせください。
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <!-- フッターコンポーネント -->
+    <div data-footer="{}"></div>
+  </body>
+</html>
