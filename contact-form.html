@@ -40,9 +40,77 @@
           <h2 class="text-3xl font-bold text-gray-900 mb-4">事前登録</h2>
         </div>
 
+        <!-- Success Message (initially hidden) -->
+        <div id="success-message" class="bg-white rounded-2xl shadow-lg p-8 text-center hidden">
+          <div class="mb-6">
+            <div class="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-4">
+              <i class="fas fa-check-circle text-green-600 text-3xl"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">事前登録完了！</h2>
+            <p class="text-lg text-gray-600">ご登録いただき、ありがとうございます。</p>
+          </div>
+
+          <div class="bg-blue-50 rounded-lg p-6 mb-6">
+            <h3 class="text-lg font-semibold text-blue-900 mb-3">今後の流れ</h3>
+            <div class="space-y-3 text-left">
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                <div>
+                  <p class="font-medium text-blue-900">確認メールの送信</p>
+                  <p class="text-sm text-blue-700">ご登録いただいたメールアドレスに確認メールをお送りします。</p>
+                </div>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                <div>
+                  <p class="font-medium text-blue-900">サービス開発の進捗報告</p>
+                  <p class="text-sm text-blue-700">開発の進捗や新機能について定期的にお知らせします。</p>
+                </div>
+              </div>
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                <div>
+                  <p class="font-medium text-blue-900">サービス開始のご案内</p>
+                  <p class="text-sm text-blue-700">サービス開始時に優先的にご案内し、特別価格でご提供いたします。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-yellow-50 rounded-lg p-4 mb-6">
+            <h4 class="font-medium text-yellow-900 mb-2">
+              <i class="fas fa-star mr-1"></i>
+              事前登録者限定特典
+            </h4>
+            <ul class="text-sm text-yellow-800 space-y-1">
+              <li>• サービス開始時の優先案内</li>
+              <li>• 初回利用料金の特別割引</li>
+              <li>• ベータ版の先行利用権</li>
+              <li>• 個別サポートの優先対応</li>
+            </ul>
+          </div>
+
+          <div class="space-x-4">
+            <button
+              onclick="resetForm()"
+              class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors"
+            >
+              <i class="fas fa-plus mr-2"></i>
+              別のアイデアを登録
+            </button>
+            <a
+              href="index.html"
+              class="inline-flex items-center px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg font-medium transition-colors"
+            >
+              <i class="fas fa-home mr-2"></i>
+              トップページに戻る
+            </a>
+          </div>
+        </div>
+
         <!-- Contact Form -->
-        <div class="bg-white rounded-2xl shadow-lg p-8">
-          <form class="space-y-6" name="pre-registration" method="POST" data-netlify="true" data-netlify-recaptcha="true" action="/success.html">
+        <div id="form-container" class="bg-white rounded-2xl shadow-lg p-8">
+          <form class="space-y-6" name="pre-registration" method="POST" data-netlify="true" data-netlify-recaptcha="true" id="registration-form">
             <!-- 会社名 (オプション) -->
             <div>
               <label for="company" class="block text-sm font-medium text-gray-700 mb-2">
@@ -164,10 +232,10 @@
     <!-- フッターコンポーネント -->
     <div data-footer="{}"></div>
 
-    <!-- JavaScript for form validation -->
+    <!-- JavaScript for form validation and handling -->
     <script>
-      document.querySelector("form").addEventListener("submit", function (e) {
-        // Netlify Formsが自動的に処理するため、preventDefault()は削除
+      document.getElementById("registration-form").addEventListener("submit", function (e) {
+        e.preventDefault();
 
         // 簡単なバリデーション
         const name = document.getElementById("name").value.trim();
@@ -176,13 +244,63 @@
         const privacy = document.getElementById("privacy").checked;
 
         if (!name || !email || !idea || !privacy) {
-          e.preventDefault();
           alert("必須項目をすべて入力してください。");
           return;
         }
 
-        // フォーム送信後は、Netlifyが自動的に確認ページにリダイレクトします
+        // フォームデータを準備
+        const formData = new FormData(this);
+
+        // 送信ボタンを無効化
+        const submitButton = this.querySelector('button[type="submit"]');
+        const originalText = submitButton.innerHTML;
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>送信中...';
+
+        // Netlify Formsに送信
+        fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData).toString(),
+        })
+          .then(() => {
+            // 成功時の処理
+            showSuccessMessage();
+          })
+          .catch((error) => {
+            // エラー時の処理
+            console.error("Error:", error);
+            alert("送信中にエラーが発生しました。もう一度お試しください。");
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalText;
+          });
       });
+
+      function showSuccessMessage() {
+        // フォームを非表示にし、成功メッセージを表示
+        document.getElementById("form-container").style.display = "none";
+        document.getElementById("success-message").classList.remove("hidden");
+
+        // ページトップにスクロール
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function resetForm() {
+        // 成功メッセージを非表示にし、フォームを表示
+        document.getElementById("success-message").classList.add("hidden");
+        document.getElementById("form-container").style.display = "block";
+
+        // フォームをリセット
+        document.getElementById("registration-form").reset();
+
+        // 送信ボタンを有効化
+        const submitButton = document.querySelector('button[type="submit"]');
+        submitButton.disabled = false;
+        submitButton.innerHTML = '<i class="fas fa-user-plus mr-2"></i>事前登録を完了する';
+
+        // ページトップにスクロール
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     </script>
   </body>
 </html>
